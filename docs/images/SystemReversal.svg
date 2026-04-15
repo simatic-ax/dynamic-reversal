@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="#fafafa"/>
+
+  <!-- VELOCITY GRAPH -->
+  <g transform="translate(50, 40)">
+    <!-- Graph title -->
+    <text x="350" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Velocity Profile</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="100" x2="700" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="50" y1="180" x2="50" y2="20" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Axis labels -->
+    <text x="700" y="120" font-family="Arial, sans-serif" font-size="12" fill="#333">t</text>
+    <text x="30" y="25" font-family="Arial, sans-serif" font-size="12" fill="#333">v</text>
+    <text x="35" y="104" font-family="Arial, sans-serif" font-size="10" fill="#666">0</text>
+
+    <!-- Positive velocity label -->
+    <text x="25" y="55" font-family="Arial, sans-serif" font-size="10" fill="#666">+v</text>
+    <!-- Negative velocity label -->
+    <text x="25" y="155" font-family="Arial, sans-serif" font-size="10" fill="#666">-v</text>
+
+    <!-- Velocity curve with C1 continuity -->
+    <!-- Jerk ramps now 90 units wide (was 60), constant accel 75 units (was 135) -->
+
+    <!-- Phase 1: Constant positive velocity -->
+    <path d="M 50 50 L 120 50" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- First jerk ramp (120-210): starts horizontal, ends matching linear slope -->
+    <path d="M 120 50 Q 164 50, 210 64" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Constant deceleration (210-285): linear, slope = 23/75 -->
+    <path d="M 210 64 L 285 87" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Second jerk ramp (285-375): starts matching linear slope, ends horizontal -->
+    <path d="M 285 87 Q 327 100, 375 100" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Third jerk ramp (375-465): starts horizontal, ends matching linear slope -->
+    <path d="M 375 100 Q 419 100, 465 114" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Constant acceleration (465-540): linear, slope = 23/75 -->
+    <path d="M 465 114 L 540 137" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Fourth jerk ramp (540-630): starts matching linear slope, ends horizontal -->
+    <path d="M 540 137 Q 582 150, 630 150" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Phase 4: Constant negative velocity -->
+    <path d="M 630 150 L 680 150" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- v=a=0 point marker -->
+    <circle cx="375" cy="100" r="5" fill="#d3e535" stroke="#76801e" stroke-width="2"/>
+    <text x="375" y="85" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#666">v=0</text>
+  </g>
+
+  <!-- ACCELERATION GRAPH -->
+  <g transform="translate(50, 220)">
+    <!-- Graph title -->
+    <text x="350" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Acceleration Profile</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="100" x2="700" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="50" y1="180" x2="50" y2="20" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Axis labels -->
+    <text x="700" y="120" font-family="Arial, sans-serif" font-size="12" fill="#333">t</text>
+    <text x="30" y="25" font-family="Arial, sans-serif" font-size="12" fill="#333">a</text>
+    <text x="35" y="104" font-family="Arial, sans-serif" font-size="10" fill="#666">0</text>
+
+    <!-- Positive accel label -->
+    <text x="25" y="55" font-family="Arial, sans-serif" font-size="10" fill="#666">+a</text>
+    <!-- Negative accel label -->
+    <text x="25" y="165" font-family="Arial, sans-serif" font-size="10" fill="#666">-a</text>
+
+    <!-- Acceleration curve - same slope (90 horizontal : 60 vertical), 50% larger amplitude -->
+    <!-- Phase 1: Zero acceleration (constant velocity) -->
+    <path d="M 50 100 L 120 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Decel ramp down: 120-210 (90 units), y: 100→160 -->
+    <path d="M 120 100 L 210 160" stroke="#4CAF50" stroke-width="3" fill="none"/>
+    <!-- Hold decel: 210-285 at y=160 -->
+    <path d="M 210 160 L 285 160" stroke="#4CAF50" stroke-width="3" fill="none"/>
+    <!-- Decel ramp up: 285-375 (90 units), y: 160→100 -->
+    <path d="M 285 160 L 375 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Accel ramp down: 375-465 (90 units), y: 100→160 -->
+    <path d="M 375 100 L 465 160" stroke="#4CAF50" stroke-width="3" fill="none"/>
+    <!-- Hold accel: 465-540 at y=160 -->
+    <path d="M 465 160 L 540 160" stroke="#4CAF50" stroke-width="3" fill="none"/>
+    <!-- Accel ramp up: 540-630 (90 units), y: 160→100 -->
+    <path d="M 540 160 L 630 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Phase 4: Zero acceleration (constant velocity) -->
+    <path d="M 630 100 L 680 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- v=a=0 point marker -->
+    <circle cx="375" cy="100" r="5" fill="#d3e535" stroke="#76801e" stroke-width="2"/>
+    <text x="375" y="85" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#666">a=0</text>
+  </g>
+
+
+  <!-- Phase labels at bottom -->
+  <g transform="translate(50, 435)">
+    <text x="85" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">Constant velocity</text>
+    <text x="250" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">Deceleration</text>
+    <text x="375" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666" font-weight="bold">Reversal</text>
+    <text x="505" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">Acceleration</text>
+    <text x="655" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">Constant velocity</text>
+  </g>
+</svg>

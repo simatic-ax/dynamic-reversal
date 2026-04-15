@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="#fafafa"/>
+
+  <!-- VELOCITY GRAPH -->
+  <g transform="translate(50, 40)">
+    <!-- Graph title -->
+    <text x="350" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Velocity Profile</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="100" x2="700" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="50" y1="180" x2="50" y2="20" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Axis labels -->
+    <text x="700" y="120" font-family="Arial, sans-serif" font-size="12" fill="#333">t</text>
+    <text x="30" y="25" font-family="Arial, sans-serif" font-size="12" fill="#333">v</text>
+    <text x="35" y="104" font-family="Arial, sans-serif" font-size="10" fill="#666">0</text>
+
+    <!-- Positive velocity label -->
+    <text x="25" y="55" font-family="Arial, sans-serif" font-size="10" fill="#666">+v</text>
+    <!-- Negative velocity label -->
+    <text x="25" y="155" font-family="Arial, sans-serif" font-size="10" fill="#666">-v</text>
+
+    <!-- Velocity curve with LDR dynamic reversal - FASTER completion -->
+    <!-- Total time: 420 units (vs 510 for standard) - saves 90 units -->
+
+    <!-- Phase 1: Constant positive velocity -->
+    <path d="M 50 50 L 120 50" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Jerk ramp start (120-210): transition to constant acceleration -->
+    <path d="M 120 50 Q 164 50, 210 64" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Constant acceleration through v=0 crossing (210-450): linear velocity change -->
+    <path d="M 210 64 L 450 137" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Jerk ramp end (450-540): transition back to zero acceleration -->
+    <path d="M 450 137 Q 493 150, 540 150" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Phase 4: Constant negative velocity - reaches target earlier! -->
+    <path d="M 540 150 L 680 150" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- v=0 point marker (a≠0 at this point) - occurs at x≈328 -->
+    <circle cx="328" cy="100" r="5" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+    <text x="328" y="85" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#2E7D32">v=0</text>
+
+    <!-- Time saved indicator - vertical dashed line at x=540 (LDR done) vs 630 (standard done) -->
+    <line x1="540" y1="45" x2="540" y2="155" stroke="#2E7D32" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="630" y1="45" x2="630" y2="155" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+
+    <!-- Time saved annotation -->
+    <line x1="540" y1="170" x2="630" y2="170" stroke="#2E7D32" stroke-width="2"/>
+    <path d="M 544 167 L 540 170 L 544 173" stroke="#2E7D32" stroke-width="2" fill="none"/>
+    <path d="M 626 167 L 630 170 L 626 173" stroke="#2E7D32" stroke-width="2" fill="none"/>
+    <text x="585" y="168" font-family="Arial, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#2E7D32">Δt</text>
+  </g>
+
+  <!-- ACCELERATION GRAPH -->
+  <g transform="translate(50, 220)">
+    <!-- Graph title -->
+    <text x="350" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Acceleration Profile</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="100" x2="700" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="50" y1="180" x2="50" y2="20" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Axis labels -->
+    <text x="700" y="120" font-family="Arial, sans-serif" font-size="12" fill="#333">t</text>
+    <text x="30" y="25" font-family="Arial, sans-serif" font-size="12" fill="#333">a</text>
+    <text x="35" y="104" font-family="Arial, sans-serif" font-size="10" fill="#666">0</text>
+
+    <!-- Positive accel label -->
+    <text x="25" y="55" font-family="Arial, sans-serif" font-size="10" fill="#666">+a</text>
+    <!-- Negative accel label -->
+    <text x="25" y="165" font-family="Arial, sans-serif" font-size="10" fill="#666">-a</text>
+
+    <!-- Acceleration curve with LDR - same slope (90:60), FASTER completion -->
+    <!-- Phase 1: Zero acceleration (constant velocity) -->
+    <path d="M 50 100 L 120 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Jerk ramp down: 120-210 (90 units), y: 100→160 -->
+    <path d="M 120 100 L 210 160" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Hold constant acceleration THROUGH the v=0 crossing: 210-450 at y=160 -->
+    <path d="M 210 160 L 450 160" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Jerk ramp up: 450-540 (90 units), y: 160→100 -->
+    <path d="M 450 160 L 540 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- Phase 4: Zero acceleration (constant velocity) - earlier than standard! -->
+    <path d="M 540 100 L 680 100" stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+    <!-- a≠0 marker at v=0 crossing point -->
+    <circle cx="328" cy="160" r="5" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+    <text x="328" y="178" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#2E7D32">a≠0</text>
+
+    <!-- Time saved indicator lines -->
+    <line x1="540" y1="95" x2="540" y2="165" stroke="#2E7D32" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="630" y1="95" x2="630" y2="165" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+  </g>
+
+
+  <!-- Phase labels at bottom -->
+  <g transform="translate(50, 435)">
+    <text x="85" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">Constant velocity</text>
+    <text x="330" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666" font-weight="bold">Reversal</text>
+    <text x="610" y="0" font-family="Arial, sans-serif" font-size="9" text-anchor="middle" fill="#666">Constant velocity</text>
+  </g>
+</svg>

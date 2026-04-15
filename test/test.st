@@ -1,6 +1,6 @@
 USING AxUnit.Assert;
 
-NAMESPACE Simatic.Ax.ldr.Tests
+NAMESPACE Simatic.Ax.LDR.Tests
     {TestFixture}
     CLASS MyTestFixture
         {Test}

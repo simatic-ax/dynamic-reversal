@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1600" height="950">
+  <defs>
+    <style>
+      .block-title { font: bold 18px "DejaVu Sans", Arial, sans-serif; fill: #000; }
+      .pin       { font: 14px "DejaVu Sans", Arial, sans-serif; fill: #000; }
+      .pin-muted { font: 14px "DejaVu Sans", Arial, sans-serif; fill: #777; }
+      .val       { font: 12px "DejaVu Sans Mono", Consolas, monospace; fill: #444; }
+      .wire      { stroke: #0066cc; stroke-width: 3; fill: none; }
+      .pin-line  { stroke: #000; stroke-width: 2; }
+      .pin-line-muted { stroke: #777; stroke-width: 2; }
+      .block-body { fill: #f5f5f5; stroke: #000; stroke-width: 2; }
+      .block-head { fill: #e4f0fc; stroke: #000; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1600" height="950" fill="white"/>
+
+  <!-- LDR_MoveVelocity -->
+  <rect x="140" y="180" width="420" height="460" class="block-body"/>
+  <rect x="140" y="180" width="420" height="34" class="block-head"/>
+  <text x="150" y="203" class="block-title">LDR_CalcMoveVelocity</text>
+  <line x1="140" y1="214" x2="560" y2="214" stroke="#000" stroke-width="1"/>
+
+  <!-- MC_MoveVelocity -->
+  <rect x="940" y="180" width="420" height="420" class="block-body"/>
+  <rect x="940" y="180" width="420" height="34" class="block-head"/>
+  <text x="950" y="203" class="block-title">MC_MoveVelocity</text>
+  <line x1="940" y1="214" x2="1360" y2="214" stroke="#000" stroke-width="1"/>
+
+  <!-- ===== LDR: left inputs (Top-Down, 40px grid) ===== -->
+  <!-- y: 250,290,330,370,410,450,490,530,570,610 -->
+  <line x1="124" y1="250" x2="140" y2="250" class="pin-line"/><text x="150" y="255" class="pin">Axis</text>                            <text x="110" y="255" class="val" text-anchor="end">0</text>
+  <line x1="124" y1="290" x2="140" y2="290" class="pin-line"/><text x="150" y="295" class="pin">Execute</text>                        <text x="110" y="295" class="val" text-anchor="end">false</text>
+  <line x1="124" y1="330" x2="140" y2="330" class="pin-line"/><text x="150" y="335" class="pin">Velocity</text>                      <text x="110" y="335" class="val" text-anchor="end">100.0</text>
+  <line x1="124" y1="370" x2="140" y2="370" class="pin-line"/><text x="150" y="375" class="pin">Acceleration</text>                  <text x="110" y="375" class="val" text-anchor="end">-1.0</text>
+  <line x1="124" y1="410" x2="140" y2="410" class="pin-line"/><text x="150" y="415" class="pin">Deceleration</text>                  <text x="110" y="415" class="val" text-anchor="end">-1.0</text>
+  <line x1="124" y1="450" x2="140" y2="450" class="pin-line"/><text x="150" y="455" class="pin">Jerk</text>                          <text x="110" y="455" class="val" text-anchor="end">-1.0</text>
+  <line x1="124" y1="490" x2="140" y2="490" class="pin-line"/><text x="150" y="495" class="pin">Direction</text>                     <text x="110" y="495" class="val" text-anchor="end">0</text>
+
+  <!-- Feedback inputs: Busy, CommandAborted, Error -->
+  <line x1="124" y1="530" x2="140" y2="530" class="pin-line"/><text x="150" y="535" class="pin">MCOutputBusy</text>
+  <line x1="124" y1="570" x2="140" y2="570" class="pin-line"/><text x="150" y="575" class="pin">MCOutputCommandAborted</text>
+  <line x1="124" y1="610" x2="140" y2="610" class="pin-line"/><text x="150" y="615" class="pin">MCOutputError</text>
+
+  <!-- ===== LDR: right outputs (Top-Down, 40px grid) ===== -->
+  <!-- External LDR outputs: unconnected -> show values -->
+  <line x1="560" y1="250" x2="576" y2="250" class="pin-line"/><text x="548" y="255" class="pin" text-anchor="end">Done</text>            <text x="584" y="255" class="val">false</text>
+  <line x1="560" y1="290" x2="576" y2="290" class="pin-line"/><text x="548" y="295" class="pin" text-anchor="end">Busy</text>           <text x="584" y="295" class="val">false</text>
+  <line x1="560" y1="330" x2="576" y2="330" class="pin-line"/><text x="548" y="335" class="pin" text-anchor="end">Error</text>          <text x="584" y="335" class="val">false</text>
+  <line x1="560" y1="370" x2="576" y2="370" class="pin-line"/><text x="548" y="375" class="pin" text-anchor="end">Status</text>         <text x="584" y="375" class="val">16#7000</text>
+
+  <!-- MC* outputs of LDR: connected -> NO values -->
+  <line x1="560" y1="410" x2="576" y2="410" class="pin-line"/><text x="548" y="415" class="pin" text-anchor="end">MCExecute</text>
+  <line x1="560" y1="450" x2="576" y2="450" class="pin-line"/><text x="548" y="455" class="pin" text-anchor="end">MCVelocity</text>
+  <line x1="560" y1="490" x2="576" y2="490" class="pin-line"/><text x="548" y="495" class="pin" text-anchor="end">MCAcceleration</text>
+  <line x1="560" y1="530" x2="576" y2="530" class="pin-line"/><text x="548" y="535" class="pin" text-anchor="end">MCDeceleration</text>
+  <line x1="560" y1="570" x2="576" y2="570" class="pin-line"/><text x="548" y="575" class="pin" text-anchor="end">MCJerk</text>
+  <line x1="560" y1="610" x2="576" y2="610" class="pin-line"/><text x="548" y="615" class="pin" text-anchor="end">MCDirection</text>
+
+  <!-- ===== MC: left inputs (Top-Down, 40px grid) ===== -->
+  <!-- Axis unconnected -> show value -->
+  <line x1="924" y1="230" x2="940" y2="230" class="pin-line"/><text x="950" y="235" class="pin">Axis</text>            <text x="900" y="235" class="val" text-anchor="end">&lt;?&gt;</text>
+  <!-- remaining inputs are connected -> NO values -->
+  <line x1="924" y1="270" x2="940" y2="270" class="pin-line"/><text x="950" y="275" class="pin">Execute</text>
+  <line x1="924" y1="310" x2="940" y2="310" class="pin-line"/><text x="950" y="315" class="pin">Velocity</text>
+  <line x1="924" y1="350" x2="940" y2="350" class="pin-line"/><text x="950" y="355" class="pin">Acceleration</text>
+  <line x1="924" y1="390" x2="940" y2="390" class="pin-line"/><text x="950" y="395" class="pin">Deceleration</text>
+  <line x1="924" y1="430" x2="940" y2="430" class="pin-line"/><text x="950" y="435" class="pin">Jerk</text>
+  <line x1="924" y1="470" x2="940" y2="470" class="pin-line"/><text x="950" y="475" class="pin">Direction</text>
+
+  <!-- ===== MC: right outputs (Order: InVelocity, Busy, CommandAborted, Error, ErrorId) ===== -->
+  <!-- InVelocity / ErrorId unconnected -> show values -->
+  <line x1="1360" y1="230" x2="1376" y2="230" class="pin-line"/><text x="1348" y="235" class="pin" text-anchor="end">InVelocity</text>        <text x="1390" y="235" class="val">false</text>
+  <line x1="1360" y1="270" x2="1376" y2="270" class="pin-line"/><text x="1348" y="275" class="pin" text-anchor="end">Busy</text>              <!-- connected -->
+  <line x1="1360" y1="310" x2="1376" y2="310" class="pin-line"/><text x="1348" y="315" class="pin" text-anchor="end">CommandAborted</text>   <!-- connected -->
+  <line x1="1360" y1="350" x2="1376" y2="350" class="pin-line"/><text x="1348" y="355" class="pin" text-anchor="end">Error</text>             <!-- connected -->
+  <line x1="1360" y1="390" x2="1376" y2="390" class="pin-line"/><text x="1348" y="395" class="pin" text-anchor="end">ErrorId</text>           <text x="1390" y="395" class="val">16#0</text>
+
+  <!-- ===== WIRING: H/V only; 90° bends in the middle ===== -->
+  <!-- Middle X lanes: 780 / 792 / 804 / 816 / 828 / 840 -->
+  <!-- LDR (MC*) -> MC (Inputs) -->
+  <path d="M 576 410 H 780 V 270 H 924" class="wire"/>  <!-- MCExecute -> Execute -->
+  <path d="M 576 450 H 792 V 310 H 924" class="wire"/>  <!-- MCVelocity -> Velocity -->
+  <path d="M 576 490 H 804 V 350 H 924" class="wire"/>  <!-- MCAcceleration -> Acceleration -->
+  <path d="M 576 530 H 816 V 390 H 924" class="wire"/>  <!-- MCDeceleration -> Deceleration -->
+  <path d="M 576 570 H 828 V 430 H 924" class="wire"/>  <!-- MCJerk -> Jerk -->
+  <path d="M 576 610 H 840 V 470 H 924" class="wire"/>  <!-- MCDirection -> Direction -->
+
+  <!-- Feedback MC -> LDR (separate lanes; H/V only) -->
+  <!-- Right lanes: 1490 / 1510 / 1530; Bottom lanes: 700 / 740 / 780; Left lanes: 60 / 80 / 100 -->
+  <path d="M 1376 270 H 1490 V 700 H 60 V 530 H 124" class="wire"/>  <!-- Busy -> MCOutputBusy -->
+  <path d="M 1376 310 H 1510 V 740 H 80 V 570 H 124" class="wire"/>  <!-- CommandAborted -> MCOutputCommandAborted -->
+  <path d="M 1376 350 H 1530 V 780 H 100 V 610 H 124" class="wire"/> <!-- Error -> MCOutputError -->
+
+  <!-- Axis remains unconnected -->
+</svg>

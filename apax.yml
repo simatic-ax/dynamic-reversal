@@ -1,16 +1,16 @@
 # General information
-name: "ldr"
+name: "@simatic-ax/dynamic-reversal"
 version: 0.0.0-placeholder
 author: Siemens AG
 
 # Description will be displayed in the apax extension
-description: <add your description here, which will be shown in the apax extension>
+description: Smooth velocity reversals for SIMATIC Motion Control Technology Objects without a stop at the reversal point.
 type: lib
 
 #URL to the repository
 repository:
   type: git
-  url: https://github.com/simatic-ax/ldr
+  url: https://github.com/simatic-ax/dynamic-reversal
 
 # Targets which will be compiled with 'apax build'
 targets:
@@ -25,7 +25,9 @@ registries:
 # The public key to verify dependencies coming from the GitHub community. This ensures, that the package is
 # not tampered with.
 publicKeys:
-  "@simatic-ax": "3792a7e926775425ccdd29ceed8c368c3008b5b33d7d5550b3cb1f58093e1dff"
+  "@simatic-ax":
+    "v1": "3792a7e926775425ccdd29ceed8c368c3008b5b33d7d5550b3cb1f58093e1dff"
+    "v2": "7af3e394eb2b285a3d99ab8e1f745cc6db75704b30a80393339c721a92ffffd9"
 
 # Dependencies
 devDependencies:
@@ -48,3 +50,7 @@ files:
 # Catalog to be intalled
 catalogs:
   "@ax/simatic-ax": ^2510.0.0
+
+dependencies:
+  "@ax/simatic-motioncontrol-native-v10": ^10.1.6
+  "@ax/system": ^10.3.25

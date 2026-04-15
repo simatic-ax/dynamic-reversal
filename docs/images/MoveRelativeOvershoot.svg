@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="550" fill="#fafafa"/>
+
+  <!-- POSITION GRAPH -->
+  <g transform="translate(50, 60)">
+    <!-- Graph title -->
+    <text x="350" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Position Profile</text>
+
+    <!-- Axes -->
+    <line x1="50" y1="140" x2="700" y2="140" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="50" y1="180" x2="50" y2="20" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Axis labels -->
+    <text x="700" y="158" font-family="Arial, sans-serif" font-size="12" fill="#333">t</text>
+    <text x="30" y="25" font-family="Arial, sans-serif" font-size="12" fill="#333">s</text>
+
+    <!-- P₀ marker (not on time axis - already at some position) -->
+    <line x1="45" y1="115" x2="55" y2="115" stroke="#666" stroke-width="1"/>
+    <text x="20" y="119" font-family="Arial, sans-serif" font-size="10" fill="#666">s₀</text>
+
+    <!-- Target position line (dashed) -->
+    <line x1="50" y1="85" x2="680" y2="85" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <text x="690" y="89" font-family="Arial, sans-serif" font-size="10" fill="#4CAF50" font-weight="bold">s_target</text>
+
+    <!-- Overshoot position line (dashed) - at actual peak y=35 -->
+    <line x1="300" y1="35" x2="480" y2="35" stroke="#76801e" stroke-width="1" stroke-dasharray="4,2"/>
+
+
+    <!-- Position curve -->
+    <!-- Phase 0: Before trigger - constant velocity, linear position increase -->
+    <path d="M 50 150 L 150 115"
+          stroke="#999" stroke-width="2" fill="none" stroke-dasharray="4,2"/>
+
+    <!-- Trigger point marker -->
+    <line x1="150" y1="115" x2="150" y2="175" stroke="#FF9800" stroke-width="2" stroke-dasharray="3,2"/>
+    <circle cx="150" cy="115" r="4" fill="#FF9800" stroke="#E65100" stroke-width="1.5"/>
+    <text x="150" y="188" font-family="Arial, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#FF9800">Execute ↑</text>
+
+    <!-- Phase 1: After trigger - jerk-limited S-curve -->
+    <!-- Peak is at x=380, y=35 (where velocity = 0) -->
+    <path d="M 150 115
+             C 180 105, 220 80, 280 55
+             C 320 42, 355 36, 380 35
+             C 405 36, 440 42, 500 60
+             C 560 75, 620 83, 680 85"
+          stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Overshoot peak marker -->
+    <circle cx="380" cy="35" r="5" fill="#d3e535" stroke="#76801e" stroke-width="2"/>
+    <text x="380" y="22" font-family="Arial, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#76801e">Peak</text>
+
+    <!-- Target reached marker -->
+    <circle cx="670" cy="85" r="5" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+
+    <!-- Overshoot distance annotation -->
+    <line x1="500" y1="85" x2="500" y2="35" stroke="#76801e" stroke-width="1.5"/>
+    <path d="M 497 81 L 500 85 L 503 81" stroke="#76801e" stroke-width="1.5" fill="none"/>
+    <path d="M 497 39 L 500 35 L 503 39" stroke="#76801e" stroke-width="1.5" fill="none"/>
+    <text x="512" y="44" font-family="Arial, sans-serif" font-size="9" fill="#76801e">Overshoot</text>
+    <text x="512" y="55" font-family="Arial, sans-serif" font-size="9" fill="#76801e">distance</text>
+
+    <!-- Distance annotation (from P₀ to P_target) -->
+    <line x1="135" y1="115" x2="135" y2="85" stroke="#4CAF50" stroke-width="1.5"/>
+    <path d="M 132 111 L 135 115 L 138 111" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+    <path d="M 132 89 L 135 85 L 138 89" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+    <text x="115" y="104" font-family="Arial, sans-serif" font-size="9" fill="#4CAF50">Distance</text>
+
+    <!-- Braking distance annotation (from P₀ to P_max) -->
+    <line x1="165" y1="115" x2="165" y2="35" stroke="#76801e" stroke-width="1.5"/>
+    <path d="M 162 111 L 165 115 L 168 111" stroke="#76801e" stroke-width="1.5" fill="none"/>
+    <path d="M 162 39 L 165 35 L 168 39" stroke="#76801e" stroke-width="1.5" fill="none"/>
+    <text x="175" y="68" font-family="Arial, sans-serif" font-size="9" fill="#76801e">Braking</text>
+    <text x="175" y="79" font-family="Arial, sans-serif" font-size="9" fill="#76801e">distance</text>
+  </g>
+
+  <!-- VELOCITY + ACCELERATION GRAPH -->
+  <g transform="translate(50, 310)">
+    <!-- Graph title -->
+    <text x="350" y="-5" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Velocity and Acceleration Profile</text>
+
+    <!-- Primary Y-axis (Velocity) -->
+    <line x1="50" y1="100" x2="700" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="50" y1="180" x2="50" y2="20" stroke="#2196F3" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Secondary Y-axis (Acceleration) -->
+    <line x1="720" y1="180" x2="720" y2="20" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- Axis labels -->
+    <text x="700" y="118" font-family="Arial, sans-serif" font-size="12" fill="#333">t</text>
+    <text x="30" y="25" font-family="Arial, sans-serif" font-size="12" fill="#2196F3">v</text>
+    <text x="730" y="25" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50">a</text>
+    <text x="35" y="104" font-family="Arial, sans-serif" font-size="10" fill="#666">0</text>
+    <text x="725" y="104" font-family="Arial, sans-serif" font-size="10" fill="#666">0</text>
+
+    <!-- Velocity labels -->
+    <text x="20" y="45" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">+v</text>
+    <text x="20" y="160" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">-v</text>
+
+    <!-- Acceleration labels -->
+    <text x="735" y="45" font-family="Arial, sans-serif" font-size="10" fill="#4CAF50">+a</text>
+    <text x="735" y="160" font-family="Arial, sans-serif" font-size="10" fill="#4CAF50">-a</text>
+
+    <!-- Trigger point marker -->
+    <line x1="150" y1="40" x2="150" y2="175" stroke="#FF9800" stroke-width="2" stroke-dasharray="3,2"/>
+    <circle cx="150" cy="40" r="4" fill="#FF9800" stroke="#E65100" stroke-width="1.5"/>
+    <text x="150" y="188" font-family="Arial, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#FF9800">Execute ↑</text>
+
+    <!-- ACCELERATION CURVE (green) - based on measurement: 0 → ramp to -7000 → hold → ramp to 0 -->
+    <!-- Phase 0: Before trigger - zero acceleration -->
+    <path d="M 50 100 L 150 100" stroke="#4CAF50" stroke-width="2" fill="none" stroke-dasharray="4,2"/>
+
+    <!-- Jerk ramp down: 150-200, accel goes from 0 to -a_max (y=160) -->
+    <path d="M 150 100 L 200 160" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+
+    <!-- Hold constant negative acceleration through zero crossing: 200-440 -->
+    <path d="M 200 160 L 440 160" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+
+    <!-- Jerk ramp up: 440-505, accel returns to 0 -->
+    <path d="M 440 160 L 505 100" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+
+    <!-- Jerk ramp to positive acceleration (decelerating negative velocity): 505-555 -->
+    <path d="M 505 100 L 555 55" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+
+    <!-- Hold positive acceleration for final approach: 555-625 -->
+    <path d="M 555 55 L 625 55" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+
+    <!-- Jerk ramp back to zero at target: 625-680 -->
+    <path d="M 625 55 L 680 100" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+
+    <!-- VELOCITY CURVE (blue) -->
+    <!-- Phase 0: Before trigger - constant positive velocity -->
+    <path d="M 50 40 L 150 40" stroke="#2196F3" stroke-width="3" fill="none" stroke-dasharray="4,2"/>
+
+    <!-- After trigger: jerk-limited S-curve deceleration -->
+    <!-- Jerk ramp 1: velocity starts decreasing with S-curve -->
+    <path d="M 150 40 Q 175 40, 200 48" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Constant deceleration: linear velocity decrease, crosses zero at x=380 -->
+    <path d="M 200 48 L 380 100" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Continue into negative velocity -->
+    <path d="M 380 100 L 440 115" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- Jerk ramp through v_min and approach: single smooth S-curve 440-680 -->
+    <!-- Line 380-440 has slope 15/60=0.25, so first control point continues this slope -->
+    <path d="M 440 115
+             C 460 120, 485 128, 505 130
+             C 525 132, 560 128, 590 118
+             C 620 108, 655 102, 680 100" stroke="#2196F3" stroke-width="3" fill="none"/>
+
+    <!-- v=0 crossing point - exactly on the zero line at x=380 -->
+    <circle cx="380" cy="100" r="5" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+    <text x="380" y="88" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#2E7D32">v=0</text>
+
+    <!-- Annotation: initial condition -->
+    <text x="85" y="32" font-family="Arial, sans-serif" font-size="9" fill="#666">v &gt; 0, Distance &gt; 0</text>
+
+    <!-- Annotation: return phase -->
+    <text x="470" y="143" font-family="Arial, sans-serif" font-size="9" fill="#76801e">Returning</text>
+  </g>
+</svg>
