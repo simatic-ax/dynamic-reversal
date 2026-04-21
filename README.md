@@ -13,9 +13,19 @@ Install with Apax:
 > If not yet done login to the GitHub registry first.
 > More information you'll find [here](https://github.com/simatic-ax/.github/blob/main/docs/personalaccesstoken.md)
 
+Pick the package matching your Motion Control version:
+
+| Package                            | Motion Control version      |
+| ---------------------------------- | --------------------------- |
+| `@simatic-ax/dynamic-reversal-v9`  | MC v9                       |
+| `@simatic-ax/dynamic-reversal-v10` | MC v10                      |
+| `@simatic-ax/dynamic-reversal`     | MC v10 (latest)             |
+
 ```cli
 apax add @simatic-ax/dynamic-reversal
 ```
+
+The unsuffixed package (`@simatic-ax/dynamic-reversal`) is an alias for the latest Motion Control version. Install either the suffixed variant or the alias, never both.
 
 Import the namespace in your ST code:
 
