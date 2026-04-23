@@ -3,11 +3,10 @@
 # rewrite-apax.sh
 #
 # Rewrite apax.yml in place for one Motion Control variant build.
-# Invoked per matrix job, and once for the unsuffixed latest-alias job (--alias).
 #
 # Behavior:
 #   - Reads the package name from apax.yml's `.name` and renames it to
-#     "<name>-v<mc>" (or leaves it as "<name>" when --alias is set).
+#     "<name>-v<mc>".
 #   - For each MC family (native, OOP) currently present in apax.yml's
 #     `dependencies`, replaces the v<N> suffix in the key with v<mc>.
 #     Preserves the existing semver range — native and OOP versions are not
@@ -41,7 +40,6 @@ MC_FAMILY_PREFIXES=(
 
 # Initialize variables before parsing args.
 mc=""
-alias_mode=0
 
 # `$#` is the number of remaining positional arguments ($1, $2, ...).
 # This loop walks them: read one or two, `shift` to discard them, repeat.
@@ -49,8 +47,6 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     # `--mc 8` — read the value into $mc, then shift TWO (the flag + value).
     --mc)    mc="$2"; shift 2 ;;
-    # `--alias` — boolean flag, no value, shift just ONE.
-    --alias) alias_mode=1; shift ;;
     # `*` is the catch-all in `case`. `>&2` redirects to stderr (channel 2)
     # so error messages don't get mixed into stdout. `exit 2` aborts with
     # a non-zero status; CI will mark the job failed.
@@ -87,12 +83,8 @@ fi
 
 # Compose the new package name.
 # `${var}-suffix` is parameter expansion — concatenation with explicit braces
-# so bash knows where the variable name ends. `-eq` compares integers.
-if [[ "$alias_mode" -eq 1 ]]; then
-  new_name="$base_name"
-else
-  new_name="${base_name}-v${mc}"
-fi
+# so bash knows where the variable name ends.
+new_name="${base_name}-v${mc}"
 
 # yq's `strenv(X)` reads the bash environment variable named X. We `export`
 # the value so yq sees it. This is safer than embedding $new_name directly

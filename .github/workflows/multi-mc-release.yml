@@ -6,8 +6,7 @@
 #
 # Triggered when a GitHub Release is published via the UI. For each MC version
 # listed in mc-versions.yml, builds and publishes a suffixed package
-# `<name>-v<mc>`. Then publishes an unsuffixed alias `<name>` built from the
-# MC version flagged `latestAlias` (default: highest mc).
+# `<name>-v<mc>`.
 #
 # The workflow is split into two phases to prevent partial releases:
 #   1. Build phase (fail-fast: true) — all MC variants must build successfully
@@ -31,8 +30,6 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.read.outputs.matrix }}
-      latest_mc: ${{ steps.read.outputs.latest_mc }}
-      publish_alias: ${{ steps.read.outputs.publish_alias }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -68,21 +65,6 @@ jobs:
           set -euo pipefail
           MATRIX=$(yq -o=json -I=0 '{"include": .versions}' mc-versions.yml)
           echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
-
-          # Unsuffixed alias is opt-in: only published when exactly one row
-          # has `latestAlias: true`. If absent, latest_mc is empty and the
-          # publish-latest-alias job is skipped.
-          LATEST_MC=$(yq -r '
-            (.versions | map(select(.latestAlias == true)) | .[0].mc) // ""
-          ' mc-versions.yml)
-          echo "latest_mc=$LATEST_MC" >> "$GITHUB_OUTPUT"
-
-          if [[ -n "$LATEST_MC" ]]; then
-            echo "publish_alias=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "publish_alias=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::No latestAlias flag in mc-versions.yml; skipping unsuffixed alias publish."
-          fi
 
   # --- Phase 1: Build all MC variants ----------------------------------
   # All variants must build successfully before any publishing starts.
@@ -139,7 +121,7 @@ jobs:
   # --- Phase 2: Publish all MC variants ---------------------------------
   # Only runs after every build job has succeeded, preventing partial releases.
   # fail-fast: false — attempt all publishes (build failures already caught).
-  publish-variants:
+  publish:
     name: Publish MC v${{ matrix.mc }}
     needs: [plan, build]
     strategy:
@@ -172,62 +154,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-mc-v${{ matrix.mc }}
-          path: bin
-
-      - name: Version package
-        uses: simatic-ax/actions/apax-version@v4
-        with:
-          version: ${{ github.event.release.tag_name }}
-
-      - name: Package source code
-        uses: simatic-ax/actions/apax-pack@v4
-        with:
-          key: ${{ secrets.APAX_SIGNKEY }}
-
-      - name: Login to required registries
-        uses: simatic-ax/actions/apax-login@v4
-        with:
-          apax-token: ${{ secrets.APAX_TOKEN }}
-          registries: |
-            https://npm.pkg.github.com/,${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish apax package
-        uses: simatic-ax/actions/apax-publish@v4
-        with:
-          registries: |
-            https://npm.pkg.github.com
-
-  publish-alias:
-    name: Publish unsuffixed alias (MC v${{ needs.plan.outputs.latest_mc }})
-    needs: [plan, build, publish-variants]
-    if: needs.plan.outputs.publish_alias == 'true'
-    runs-on: ubuntu-24.04
-    container:
-      image: ghcr.io/simatic-ax/ci-images/apax-ci-image:4.2.0
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.release.tag_name }}
-          fetch-depth: 0
-
-      - name: Install yq
-        run: |
-          wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-          chmod +x /usr/local/bin/yq
-
-      - name: Rewrite apax.yml for unsuffixed alias
-        run: bash .github/scripts/rewrite-apax.sh --mc '${{ needs.plan.outputs.latest_mc }}' --alias
-
-      - name: Create bin folder
-        run: mkdir -p bin
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-mc-v${{ needs.plan.outputs.latest_mc }}
           path: bin
 
       - name: Version package
