@@ -1,4 +1,4 @@
-USING Siemens.Simatic.MotionControl.Native;
+USING Siemens.S7.MotionControl;
 USING System.Conversion;
 USING System.FastMath;
 NAMESPACE Simatic.Ax.LDR
