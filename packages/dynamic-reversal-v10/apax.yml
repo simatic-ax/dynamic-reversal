@@ -34,7 +34,8 @@ devDependencies:
 
 dependencies:
   "@ax-mc/s7-motioncontrol-v10-lib": ^11.0.27
-  "@ax-as/system-lib": ^11.0.232
+  "@ax-as/system-fastmath-lib": ^11.0.232
+  "@ax-as/system-conversion-lib": ^11.0.232
 
 scripts:
   mk:release: apax make -p MakeConfigName:release
