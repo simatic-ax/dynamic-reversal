@@ -54,7 +54,7 @@ The LDR blocks do not contain direct calls to Motion Control instructions. They 
 The LDR block must be called right **before** the corresponding Motion Control instruction in each program cycle:
 
 ```iec-st
-USING Siemens.Simatic.MotionControl.Native;
+USING Siemens.S7.MotionControl;
 USING Simatic.Ax.LDR;
 
 PROGRAM MyProgram

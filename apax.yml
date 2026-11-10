@@ -1,5 +1,5 @@
 # General information
-name: "@simatic-ax/dynamic-reversal"
+name: "@simatic-ax/dynamic-reversal-v10"
 version: 0.0.0-placeholder
 author: Siemens AG
 
@@ -11,11 +11,6 @@ type: lib
 repository:
   type: git
   url: https://github.com/simatic-ax/dynamic-reversal
-
-# Targets which will be compiled with 'apax build'
-targets:
-  - "1500"
-  - "llvm"
 
 # Registry information, to other npm-registries where Apax packages are located
 # '@scope': 'registry-url'
@@ -29,28 +24,28 @@ publicKeys:
     "v1": "3792a7e926775425ccdd29ceed8c368c3008b5b33d7d5550b3cb1f58093e1dff"
     "v2": "7af3e394eb2b285a3d99ab8e1f745cc6db75704b30a80393339c721a92ffffd9"
 
+catalogs:
+  "@ax-as/s7-catalog": ^2610.0.2
+
 # Dependencies
 devDependencies:
-  '@ax/sdk': ^2510.0.0
+  "@ax-as/s7-sdk": ^2610.0.2
   "@simatic-ax/snippetscollection": ^1.0.0
 
-# Project variables
-variables:
-  APAX_BUILD_ARGS:
-    - '--debug'
+dependencies:
+  "@ax-mc/s7-motioncontrol-v10-lib": ^11.0.27
+  "@ax-as/system-fastmath-lib": ^11.0.232
+  "@ax-as/system-conversion-lib": ^11.0.232
+
+scripts:
+  mk:release: apax make -p MakeConfigName:release
+  mk:debug: apax make -p MakeConfigName:debug
 
 # Files, which will be shipped with the library
 files:
-  - 'README.md'
-  - 'LICENSE.md'
-  - 'docs'
-  - 'bin'
-  - 'snippets'
-
-# Catalog to be intalled
-catalogs:
-  "@ax/simatic-ax": ^2510.0.0
-
-dependencies:
-  "@ax/simatic-motioncontrol-native-v10": ^10.1.6
-  "@ax/system": ^10.3.25
+  - docs
+  - bin/release
+  - '!bin/release/lastused*'
+  - snippets
+  - LICENSE.md
+  - README.md
