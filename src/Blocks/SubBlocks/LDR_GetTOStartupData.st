@@ -1,4 +1,4 @@
-USING Siemens.Simatic.MotionControl.Native;
+USING Siemens.S7.MotionControl;
 NAMESPACE Simatic.Ax.LDR
     ///================================================================================
     /// SIEMENS AG
